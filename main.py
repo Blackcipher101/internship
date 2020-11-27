@@ -1,21 +1,21 @@
 import matplotlib.pyplot as plt
 import csv
-csv_columns = ['Name','Number','Points']
-csv_columns2 = ['category','Name','code','price','date of arrival','expiry','quantity','Company','model']
-csv_file = "Names.csv"
-csv_file2 = "Products.csv"
-csv_file3="Sales.csv"
-csv_columns3 = ['value','day']
+csv_columns = ['Name','Number','Points']                                                                       # ------------------ Headlines ---------------#
+csv_columns2 = ['category','Name','code','price','date of arrival','expiry','quantity','Company','model']      # ------------------ Headlines ---------------#
+csv_file = "Names.csv"                                                                                          #CSVfiles
+csv_file2 = "Products.csv"                                                                                      #CSVfiles
+csv_file3="Sales.csv"                                                                                           #CSVfiles  
+csv_columns3 = ['value','day']                                                                                 # ------------------ Headlines ---------------#
 
 
-class User:
+class User:                                                     #User object
     def __init__(self,name,number): #Creates user
         self.name=name
         self.number=number
         self.points=0
     def update(self,points): #Updates points
         self.points=self.points+points
-class products:
+class products:                                                                #product object
     def __init__(self,name,price,code):
         self.name=name
         self.price=price
@@ -31,7 +31,7 @@ class products:
         return self.code
 
 
-class grocery(products):
+class grocery(products):                                                 #prduct inherits
     def __init__(self,name,price,code,date_of_arrival,exipry,quantity):
         super().__init__(name,price,code)
         self.date_of_arrival=date_of_arrival
@@ -49,10 +49,10 @@ class electronics(products):
 x="10"
 
 while True:
-    print("1.Add User\n2.Add products\n3.Makebill\n4.Sale Graph\n5.quit")
-    print("\nEnter option")
+    print("1.Add User\n2.Add products\n3.Makebill\n4.Sale Graph\n5.quit")                #---------------- Display options
+    print("\nEnter option")                           
     option=input()
-    if option=="1":
+    if option=="1":                                                       #add user
         name=input("\n\nEnter name: ")
         number=input("\n\nEnter number: ")
         user=User(name,number)
@@ -65,9 +65,9 @@ while True:
             for data in dict_data:
                 writer.writerow(data)
     print(option)
-    if option == "2":
+    if option == "2":                                           #add products
         category=input("\n\nEnter catergory: \n1.grocery\n2.electronics\n")
-        if category=="1":
+        if category=="1":                                       # category
             name=input("\ngrocery name: ")
             price=input("\nprice: ")
             code=input("\ncode: ")
@@ -184,7 +184,7 @@ while True:
             print("No user found")
 
     if option=="4":
-        entry=[]
+        entry=[]                                                               #line graph
         summmation=0
         days=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
         values=[]
