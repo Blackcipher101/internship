@@ -1,2 +1,4 @@
 category,Name,code,price,date of arrival,expiry,quantity,Company,model
-grocery,cabbage,1435,32,12/01/2017,12/02/2017,3kg,,
+grocery,cabbage,1435,32,12/01/2017,12/02/2017,3,,
+category,Name,code,price,date of arrival,expiry,quantity,Company,model
+Electronics,hist,234,346,,,4,hitsui,wer
