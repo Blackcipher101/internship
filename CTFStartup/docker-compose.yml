@@ -1,0 +1,66 @@
+version: '3.6'
+services:
+    db:
+        container_name: pgdb
+        image: postgres
+        networks:
+          - main
+        ports:
+          - "5432:5432"
+        expose:
+          - "5432"
+        environment:
+          - POSTGRES_DB
+          - POSTGRES_USER
+          - POSTGRES_PASSWORD
+  
+    framework:
+        container_name: framework
+        networks:
+          - main
+        ports:
+          - 8000:8000
+        volumes:
+          - ./framework:/framework
+        image: framework:0.0.1
+        build:
+          context: framework
+          dockerfile: Dockerfile
+        links:
+          - db:db
+        environment:
+          - SECRET_KEY=$FRAMEWORK_SECRET_KEY
+          - DEBUG=$FRAMEWORK_DEBUG
+          - ALLOWED_HOSTS=$FRAMEWORK_ALLOWED_HOSTS
+          
+          # Database Settings
+          - POSTGRES_DB
+          - POSTGRES_USER
+          - POSTGRES_PASSWORD
+          - POSTGRES_HOST=db
+          
+          # Amazon S3 Settings
+          - S3_ACCESS_KEY_ID=AKIAJL6VVNM35UYVIQEQ
+          - S3_SECRET_ACCESS_KEY=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
+          - S3_STORAGE_BUCKET_NAME=vpframework
+        command: 
+            "daphne -b 0.0.0.0 -p 8000 framework.asgi:application"
+
+    
+
+    nginx:
+        container_name: nginx
+        image: nginx:0.0.5
+        build:
+          context: nginx
+          dockerfile: Dockerfile
+        ports:
+          - "80:80"
+        depends_on: 
+          - framework
+        networks:
+          - main
+        command: [nginx-debug, '-g', 'daemon off;']
+networks:
+  main:    
+
